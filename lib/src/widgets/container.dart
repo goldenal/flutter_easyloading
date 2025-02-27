@@ -136,50 +136,52 @@ class EasyLoadingContainerState extends State<EasyLoadingContainer>
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      alignment: _alignment,
-      children: <Widget>[
-        AnimatedBuilder(
-          animation: _animationController,
-          builder: (BuildContext context, Widget? child) {
-            return Opacity(
-              opacity: _animationController.value,
-              child: IgnorePointer(
-                ignoring: _ignoring,
-                child: _dismissOnTap
-                    ? GestureDetector(
-                        onTap: _onTap,
-                        behavior: HitTestBehavior.translucent,
-                        child: Container(
-                          width: double.infinity,
-                          height: double.infinity,
-                          color: _maskColor,
-                        ),
-                      )
-                    : Container(
-                        width: double.infinity,
-                        height: double.infinity,
-                        color: _maskColor,
-                      ),
-              ),
-            );
-          },
-        ),
-        AnimatedBuilder(
-          animation: _animationController,
-          builder: (BuildContext context, Widget? child) {
-            return EasyLoadingTheme.loadingAnimation.buildWidget(
-              _Indicator(
-                status: _status,
-                indicator: widget.indicator,
-              ),
-              _animationController,
-              _alignment,
-            );
-          },
-        ),
-      ],
-    );
+    return Container(
+        color: Colors.transparent,
+        child: Stack(
+          alignment: _alignment,
+          children: <Widget>[
+            AnimatedBuilder(
+              animation: _animationController,
+              builder: (BuildContext context, Widget? child) {
+                return Opacity(
+                  opacity: _animationController.value,
+                  child: IgnorePointer(
+                    ignoring: _ignoring,
+                    child: _dismissOnTap
+                        ? GestureDetector(
+                            onTap: _onTap,
+                            behavior: HitTestBehavior.translucent,
+                            child: Container(
+                              width: double.infinity,
+                              height: double.infinity,
+                              color: _maskColor,
+                            ),
+                          )
+                        : Container(
+                            width: double.infinity,
+                            height: double.infinity,
+                            color: _maskColor,
+                          ),
+                  ),
+                );
+              },
+            ),
+            AnimatedBuilder(
+              animation: _animationController,
+              builder: (BuildContext context, Widget? child) {
+                return EasyLoadingTheme.loadingAnimation.buildWidget(
+                  _Indicator(
+                    status: _status,
+                    indicator: widget.indicator,
+                  ),
+                  _animationController,
+                  _alignment,
+                );
+              },
+            ),
+          ],
+        ));
   }
 }
 
@@ -195,13 +197,15 @@ class _Indicator extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.all(50.0),
+      height: double.infinity,
+      width: double.infinity,
+      // margin: const EdgeInsets.all(50.0),
       decoration: BoxDecoration(
         color: EasyLoadingTheme.backgroundColor,
         borderRadius: BorderRadius.circular(
           EasyLoadingTheme.radius,
         ),
-        boxShadow: EasyLoadingTheme.boxShadow,
+        //  boxShadow: EasyLoadingTheme.boxShadow,
       ),
       padding: EasyLoadingTheme.contentPadding,
       child: Column(
